@@ -30,16 +30,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("juancho").password("{noop}" + "2311").roles("ADMIN , USER")
+                .withUser("juancho").password("{noop}2311").roles("ADMIN")
                 .and()
-                .withUser("gabo").password("{noop}" + "0911").roles("USER")
+                .withUser("gabo").password("{noop}0911").roles("USER")
                 .and()
-                .withUser("joaquin").password("{noop}" + "1111").roles("USER");
+                .withUser("joaquin").password("{noop}1111").roles("USER");
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        return new BCryptPasswordEncoder();
+//    }
 
 }
