@@ -5,28 +5,35 @@ import Package.Repositories.LaptopRepository;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@AllArgsConstructor @Getter @Setter
+@AllArgsConstructor @NoArgsConstructor @Getter @Setter
 public class LaptopController {
 
+    @Autowired
     private LaptopRepository laptopRepository;
     private final Logger log = LoggerFactory.getLogger(LaptopController.class);
+
+//    @Value("${app.messageDev}")
+//    String messageProperties;
 
     //Find all laptops and return laptops list
     @GetMapping("/laptops")
     @ApiOperation("This method is to find all laptops")
     public List<Laptop> findAllLaptops(){
+//        System.out.println(messageProperties);
         return laptopRepository.findAll();
     }
 
