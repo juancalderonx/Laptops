@@ -2,6 +2,7 @@ package Package.Security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,12 +16,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/getAllLaptops").permitAll()
-                //Esta línea me permite quitar la autenticación de una URL
-                .antMatchers("/getLaptop/{id}").hasRole("ADMIN")
-                .antMatchers("/deleteAllLaptops").hasRole("ADMIN")
-                //Línea que dice que todas las peticiones deben estar autenticadas.
+        http
+                .authorizeRequests()
+                .antMatchers("/api/getAllLaptops").permitAll()
+                .antMatchers("/api/getLaptop/{id}").hasRole("USER")
+                .antMatchers("/api/deleteAllLaptops").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .and().httpBasic();
@@ -28,13 +28,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder())
-                .withUser("Juan").password(passwordEncoder().encode("2311")).roles("ADMIN")
+        auth
+                .inMemoryAuthentication()
+                .withUser("juancho").password("{noop}" + "2311").roles("ADMIN , USER")
                 .and()
-                .withUser("Gabo").password(passwordEncoder().encode("0911")).roles("ADMIN")
+                .withUser("gabo").password("{noop}" + "0911").roles("USER")
                 .and()
-                .withUser("Joaco").password(passwordEncoder().encode("0011")).roles("USER");
+                .withUser("joaquin").password("{noop}" + "1111").roles("USER");
     }
 
     @Bean
