@@ -30,7 +30,7 @@ public class LaptopController {
 //    String messageProperties;
 
     //Find all laptops and return laptops list
-    @GetMapping("/laptops")
+    @GetMapping("/getAllLaptops")
     @ApiOperation("This method is to find all laptops")
     public List<Laptop> findAllLaptops(){
 //        System.out.println(messageProperties);
@@ -38,7 +38,7 @@ public class LaptopController {
     }
 
     //Find laptop by ID
-    @GetMapping("/laptops/{id}")
+    @GetMapping("/getLaptop/{id}")
     @ApiOperation("This method is to find laptop by ID")
     public ResponseEntity<Laptop> findLaptopById(@PathVariable Long id){
 
@@ -53,13 +53,13 @@ public class LaptopController {
     }
 
     //Receive a laptop object in JSON format from Postman
-    @PostMapping("/laptops")
+    @PostMapping("/createLaptop")
     @ApiOperation("This method is to create a laptop")
     public Laptop createLaptop(@RequestBody Laptop laptop){
         return laptopRepository.save(laptop);
     }
 
-    @PutMapping("/laptops")
+    @PutMapping("/updateLaptop")
     @ApiOperation("This method is to modifying a laptop")
     public ResponseEntity<Laptop> updateCurrentLaptop(@RequestBody Laptop laptop){
 
@@ -77,7 +77,7 @@ public class LaptopController {
         return ResponseEntity.ok(laptopsModified);
     }
 
-    @DeleteMapping("/laptops/{id}")
+    @DeleteMapping("/deleteLaptop/{id}")
     @ApiOperation("This method is to delete laptop by ID")
     public ResponseEntity<Laptop> deleteLaptopById(@PathVariable Long id){
 
@@ -91,7 +91,7 @@ public class LaptopController {
 
     }
 
-    @DeleteMapping("/laptops")
+    @DeleteMapping("/deleteAllLaptops")
     @ApiOperation("This method is to delete all laptops")
     public ResponseEntity<Laptop> deleteAllLaptops(){
 
